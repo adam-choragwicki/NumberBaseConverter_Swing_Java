@@ -104,6 +104,12 @@ public class Main
         /* Mix of numbers and letters */
         testConversion("36", "zXcX", "1676193");
         testConversion("36", "Xa5X", "1552821");
+
+        /* Fractions */
+        testConversion("5", "123.4321", "38.937600");
+        testConversion("10", "123456.789", "123456.789000");
+        testConversion("15", "0.789", "0.504889");
+        testConversion("36", "abcd.52a", "481261.140646");
     }
 
     static void testConversion(String sourceBaseString, String numberString, String expectedResult)
