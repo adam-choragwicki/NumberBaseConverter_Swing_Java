@@ -7,7 +7,37 @@ import java.math.RoundingMode;
 
 public class Converter
 {
-    public String convertBaseXToDecimal(final String inputNumberString, final int sourceBase) throws WrongNumberRepresentationException
+    public Converter(String sourceBaseString, String targetBaseString) throws InvalidNumberBaseException
+    {
+        try
+        {
+            sourceBase = Integer.parseInt(sourceBaseString);
+            targetBase = Integer.parseInt(targetBaseString);
+        }
+        catch (NumberFormatException numberFormatException)
+        {
+            throwInvalidNumberBase();
+        }
+
+        if (!(sourceBase >= MIN_BASE && sourceBase <= MAX_BASE) || !(targetBase >= MIN_BASE && targetBase <= MAX_BASE))
+        {
+            throwInvalidNumberBase();
+        }
+    }
+
+    public String convertNumber(String numberString) throws InvalidNumberRepresentationException
+    {
+        String decimalResultString = convertBaseXToDecimal(numberString, sourceBase);
+        return convertDecimalToBaseX(decimalResultString, targetBase);
+    }
+
+    private void throwInvalidNumberBase() throws InvalidNumberBaseException
+    {
+        System.out.printf("Wrong number base. Expected integer in range <%d,%d>", MIN_BASE, MAX_BASE);
+        throw new InvalidNumberBaseException();
+    }
+
+    private String convertBaseXToDecimal(final String inputNumberString, final int sourceBase) throws InvalidNumberRepresentationException
     {
         if (inputNumberString.contains("."))
         {
@@ -24,20 +54,20 @@ public class Converter
         }
     }
 
-    private String convertBaseXIntegerToDecimalInteger(String baseXInteger, int sourceBase) throws WrongNumberRepresentationException
+    private String convertBaseXIntegerToDecimalInteger(String baseXInteger, int sourceBase) throws InvalidNumberRepresentationException
     {
         try
         {
             BigInteger integer = new BigInteger(baseXInteger, sourceBase);
             return integer.toString();
         }
-        catch(NumberFormatException numberFormatException)
+        catch (NumberFormatException numberFormatException)
         {
-            throw new WrongNumberRepresentationException();
+            throw new InvalidNumberRepresentationException(baseXInteger, sourceBase);
         }
     }
 
-    private String convertBaseXFractionToDecimalFraction(final String baseXFraction, int sourceBase)
+    private String convertBaseXFractionToDecimalFraction(final String baseXFraction, int sourceBase) throws InvalidNumberRepresentationException
     {
         BigDecimal sourceBaseBig = BigDecimal.valueOf(sourceBase);
 
@@ -46,7 +76,16 @@ public class Converter
         BigDecimal factor = BigDecimal.ONE.divide(sourceBaseBig, precision);
         BigDecimal decimalFractionalPart = BigDecimal.ZERO;
 
-        BigInteger fractionalPartAsInteger = new BigInteger(baseXFraction, sourceBase);
+        BigInteger fractionalPartAsInteger;
+
+        try
+        {
+            fractionalPartAsInteger = new BigInteger(baseXFraction, sourceBase);
+        }
+        catch (NumberFormatException numberFormatException)
+        {
+            throw new InvalidNumberRepresentationException(baseXFraction, sourceBase);
+        }
 
         if (fractionalPartAsInteger.intValue() == 0)
         {
@@ -68,12 +107,88 @@ public class Converter
 
         return decimalFractionalPart.toString();
     }
+
+    public String convertDecimalToBaseX(final String inputDecimalString, final int targetBase)
+    {
+        if (inputDecimalString.contains("."))
+        {
+            String[] numberParts = inputDecimalString.split("\\.");
+
+            String resultBaseXIntegerPart = convertDecimalIntegerToBaseXInteger(numberParts[0], targetBase);
+            String resultBaseXFractionalPart = convertDecimalFractionToBaseXFraction(numberParts[1], targetBase);
+
+            return resultBaseXIntegerPart + "." + resultBaseXFractionalPart;
+        }
+        else
+        {
+            return convertDecimalIntegerToBaseXInteger(inputDecimalString, targetBase);
+        }
+    }
+
+    private String convertDecimalIntegerToBaseXInteger(String decimalInteger, int targetBase)
+    {
+        return new BigInteger(decimalInteger).toString(targetBase);
+    }
+
+    private String convertDecimalFractionToBaseXFraction(String decimalFraction, int targetBase)
+    {
+        BigDecimal targetBaseBig = BigDecimal.valueOf(targetBase);
+
+        StringBuilder resultBaseXFractionalPart = new StringBuilder();
+
+        BigDecimal inputFractionalPart = new BigDecimal("0." + decimalFraction);
+
+        /* If value of fractional digits is 0 */
+        if (inputFractionalPart.equals(BigDecimal.ZERO))
+        {
+            resultBaseXFractionalPart.append("00000");
+        }
+        else
+        {
+            final int TARGET_SIGNIFICANT_DIGITS_COUNT = 5;
+            int significantDigitsCount = 0;
+
+            while ((inputFractionalPart.compareTo(BigDecimal.ZERO) > 0) && significantDigitsCount < 5)
+            {
+                inputFractionalPart = inputFractionalPart.multiply(targetBaseBig);
+
+                char baseXDigit = Character.forDigit(inputFractionalPart.intValue(), targetBaseBig.intValue());
+                resultBaseXFractionalPart.append(baseXDigit);
+
+                /* If resulting number is higher than 1.0, subtract the integer part */
+                if (inputFractionalPart.compareTo(BigDecimal.ONE) > 0)
+                {
+                    inputFractionalPart = inputFractionalPart.subtract(new BigDecimal(inputFractionalPart.toBigInteger()));
+                }
+
+                ++significantDigitsCount;
+            }
+
+            /* Fill resulting fraction up with zeroes up to TARGET_SIGNIFICANT_DIGITS_COUNT */
+            if (significantDigitsCount != TARGET_SIGNIFICANT_DIGITS_COUNT)
+            {
+                resultBaseXFractionalPart.append("0".repeat(TARGET_SIGNIFICANT_DIGITS_COUNT - significantDigitsCount));
+            }
+        }
+
+        return resultBaseXFractionalPart.toString();
+    }
+
+    final int MIN_BASE = 2;
+    final int MAX_BASE = 36;
+    private int sourceBase;
+    private int targetBase;
 }
 
-class WrongNumberRepresentationException extends Exception
+class InvalidNumberBaseException extends Exception
 {
-    public WrongNumberRepresentationException()
+
+}
+
+class InvalidNumberRepresentationException extends Exception
+{
+    public InvalidNumberRepresentationException(String number, int base)
     {
-        super();
+        System.out.printf("Number %s cannot be represented in base %d", number, base);
     }
 }
