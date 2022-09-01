@@ -1,0 +1,688 @@
+2 5
+111110001.11000
+3442.33333
+
+
+2 8
+1101000011.10000
+1503.40000
+
+
+2 11
+1001101100.10000
+514.55555
+
+
+2 14
+1100110101.10000
+429.70000
+
+
+2 17
+1000000111.11000
+1d9.ccccc
+
+
+2 20
+1001111000.10000
+1bc.a0000
+
+
+2 23
+1000110101.10000
+11d.bbbbb
+
+
+2 26
+110100001.00000
+g1.00000
+
+
+2 29
+1111001110.10000
+14h.eeeee
+
+
+2 32
+110100.11000
+1k.o0000
+
+
+2 35
+11101110.11000
+6s.q8q8q
+
+
+5 2
+12202.30024
+1110011111.10011
+
+
+5 8
+2431.33324
+556.57716
+
+
+5 11
+12.23340
+7.60664
+
+
+5 14
+344.34033
+71.aa136
+
+
+5 17
+4223.23030
+1g2.8fb5d
+
+
+5 20
+10.04321
+5.3f034
+
+
+5 23
+3242.01033
+ja.114hc
+
+
+5 26
+4241.41421
+lp.mjm3g
+
+
+5 29
+1334.03114
+7g.3n20r
+
+
+5 32
+11122.22244
+oj.g3oio
+
+
+5 35
+1004.41104
+3o.tpcus
+
+
+8 2
+1175.51301310
+1001111101.10100
+
+
+8 5
+1277.12071575
+10303.03433
+
+
+8 11
+265.63234140
+155.88aa9
+
+
+8 14
+1273.15332562
+37d.2d199
+
+
+8 17
+45.06451305
+23.1cc30
+
+
+8 20
+1603.04427705
+24j.1886b
+
+
+8 23
+623.16424156
+hc.5541m
+
+
+8 26
+1377.34656410
+13d.bigaj
+
+
+8 29
+500.01232656
+b1.0h394
+
+
+8 32
+1604.12642727
+s4.5d2sv
+
+
+8 35
+727.06154177
+dg.3dv55
+
+
+11 2
+3a7.829003a2216
+111100000.11000
+
+
+11 5
+136.9851a994286
+1120.42100
+
+
+11 8
+465.07a86a23885
+1053.04161
+
+
+11 14
+446.84249741189
+2a2.a9555
+
+
+11 17
+264.a57055a1820
+116.g436a
+
+
+11 20
+773.8865330704a
+267.fj615
+
+
+11 23
+665.736a7161651
+1bf.f7bmi
+
+
+11 26
+13a.74399042338
+68.hcd3p
+
+
+11 29
+660.57829111298
+r9.f143q
+
+
+11 32
+784.58189816588
+tb.gmhgj
+
+
+11 35
+28.6553a2a1505
+u.knpm8
+
+
+14 2
+1c0.800ca04c6c7365
+101101100.10010
+
+
+14 5
+3bb.508c1630c9d2b2
+11003.14001
+
+
+14 8
+2d2.686b30d6b412b6
+1100.36146
+
+
+14 11
+470.0d7b845968023d
+732.08409
+
+
+14 17
+2b8.306a824976d66c
+1fa.3baf0
+
+
+14 20
+242.88197b36c347a0
+12a.c52h5
+
+
+14 23
+38c.741da886a0d061
+17m.bmfdi
+
+
+14 26
+a3.b5a29159c73069
+5d.l4n92
+
+
+14 29
+3bb.d4c05433b581d2
+ps.rimgf
+
+
+14 32
+4c8.821a6a59d39a7c
+u0.ik7qb
+
+
+14 35
+315.56305628a58ac9
+hc.dlcbi
+
+
+17 2
+1c9.274ea782cg75ec960
+111110110.00100
+
+
+17 5
+328.7171fe6cg8g0c4433
+12114.20202
+
+
+17 8
+17a.df0211aafd51430ac
+642.64207
+
+
+17 11
+12g.9df344f41518c7e9c
+289.6396a
+
+
+17 14
+2b6.1bf0d90g81786gb7c
+3d1.15838
+
+
+17 20
+1ca.a6164704gd2b79f10
+153.c3e40
+
+
+17 23
+250.b647ac29g28454673
+15j.f8h8l
+
+
+17 26
+2gc.b7107egeg5f88g50e
+174.hbo29
+
+
+17 29
+dd.571867393254fff94
+82.96sb4
+
+
+17 32
+18c.17ea74185d67935b6
+dl.2o2le
+
+
+17 35
+g7.7c27ff2a8f1928fa2
+7y.fuv74
+
+
+19 2
+4c.ih9hchfge6ai99df48e
+1011000.11111
+
+
+19 5
+b5.d0c67a749dcd6052a8b
+1324.32033
+
+
+19 8
+240.g09fha6fdc6c36ffd31
+1436.65771
+
+
+19 11
+1hb.c2ih7c178fagbc5h02b
+582.70474
+
+
+19 14
+ie.6hha95868423e1aef67
+1b6.518aa
+
+
+19 17
+gd.11369e96625612ebd85
+11b.0g29f
+
+
+19 20
+d5.36cb4c9h9i0117h6598
+cc.3aag3
+
+
+19 23
+73.6h20g0ee9a9ca14h171
+5l.882i8
+
+
+19 26
+18f.adfa8i4eg79c3e19eg9
+k8.ehh7n
+
+
+19 29
+132.f9di9dgbfadc7065620
+ee.nji5q
+
+
+19 32
+i8.gg8999i1hb21bh7agd5
+au.scv18
+
+
+19 35
+147.7ig517d48f242bghffe
+co.epaiv
+
+
+22 2
+1gk.efeadge2bk09bgb3bfa8ba
+1101011000.10101
+
+
+22 5
+1d1.7i66el13hh5dcgllba5dc0
+11041.13422
+
+
+22 8
+i3.jgi60aa5b2c8lbjal6h786
+617.71377
+
+
+22 11
+29.cd29e303liah5i95jellk8
+49.63306
+
+
+22 14
+ga.a1f0hicl9ej5a8bc82feee
+1bc.65ab6
+
+
+22 17
+140.1bf4c9d2051h9a9g3j5bb7
+1gb.131gf
+
+
+22 20
+11g.j540hkhgeakh8f6a4cbj4d
+162.h9ef7
+
+
+22 23
+1e6.j8a4d8j2d9hjf291lh3gc7
+1bg.k62ee
+
+
+22 26
+8l.2fgajhaj448bbee4579ege
+7f.35bjh
+
+
+22 29
+1kf.2lc7f7b9ig598a00lbda1f
+13b.3qqj4
+
+
+22 32
+45.27ab29c20b5e9hf37j3al6
+2t.3ct4e
+
+
+22 35
+14h.a09h7dhcf6hdfib2d80744
+gt.fwx25
+
+
+25 2
+95.41hdmm0fc2m4a5jbnb7elbfk8
+11100110.00101
+
+
+25 5
+kn.g5gl7ij71j8b256f743j24509
+4043.31103
+
+
+25 8
+119.j3e59ge5anmf17186c572ld84
+1223.61002
+
+
+25 11
+9k.75lceejn0jio3hj61hl5279g8
+203.32018
+
+
+25 14
+1ef.n2egem3deajice26ak8lfc5i2
+50a.cd1b9
+
+
+25 17
+gm.gbk001ki9gjc4cfl72b9gd3ig
+17e.b3715
+
+
+25 20
+fd.175jc7om3727eoa1inahm6423
+j8.10cb4
+
+
+25 23
+50.dmk3f5b307e0g3e84bl3g2dlb
+5a.ci8ia
+
+
+25 26
+50.28hngmo9dlmhhke96afok7ld2
+4l.2bd6b
+
+
+25 29
+m6.4bdehi2b65c4m0jl7lcdh649e
+j5.552kc
+
+
+25 32
+dc.l9a4m6aj9bgh7677l258792co
+ah.rbic1
+
+
+25 35
+39.4nhnddgciimeke37f5dmj3fc1
+2e.6wh0p
+
+
+28 2
+o1.o57ffo0qed7c6lgcgi9qgfr3e
+1010100001.11011
+
+
+28 5
+e5.oq13on5kmqr04jlkmjdhfpghe
+3042.42112
+
+
+28 8
+32.9ef228c70f97po5lhe8ad6fl
+126.25604
+
+
+28 11
+nm.db6aa1o7off0o7qmmf64mnj0oe
+556.52a03
+
+
+28 14
+10k.0mme0q8j848ond00crqd858eoe
+416.059b5
+
+
+28 17
+ag.e14hp2ppiar1r3m9gkmdl0ak3e
+107.88fdb
+
+
+28 20
+16m.10ain5me53fqkrk50ajei3d15j7
+28e.0e9c0
+
+
+28 23
+b6.p103ki1fea14c9am19a70ak3e
+df.kcmmh
+
+
+28 26
+i0.irngmfgogbj3r6qo1jm0144ae
+ja.hgf16
+
+
+28 29
+85.4neqb1h7bo3pdinr1c3q99i7c7
+7q.50b75
+
+
+28 32
+6a.fd6nljnbapqkr57lp859oaq7
+5i.hlrrf
+
+
+28 35
+pn.h7fp3686jmai3h0nh30nf5j7
+kn.lkk4h
+
+
+31 2
+di.a1ccsglorql7388gsk7dups069cj6df
+110100101.01010
+
+
+31 5
+us.0poojk0m71gs8dof56k5ccr87d2u1td
+12313.00313
+
+
+31 8
+s2.c1tpmoalj9fnsa7sb2aj496u7i3968b
+1546.30717
+
+
+31 11
+5e.d8h8shnt29ks574u8g7lcdp8fqtq751
+144.47901
+
+
+31 14
+og.eh3shh9hj98f6tgqbnplh2u6sphcb54
+3c4.6801a
+
+
+31 17
+30.85do5ig38imaibhd72edrj71b2q0kh1
+58.483bg
+
+
+31 20
+d9.hf4m2nfpbbfnb8bfui2pjqbcbpenuq1
+10c.b5d4c
+
+
+31 23
+rd.ih624i09sr2nm7sigubbqipl4rsm5mk
+1dm.dhe9h
+
+
+31 26
+5e.ghcd9gjghhgl5025fnj19soe9ghc6fl
+6d.dn3j0
+
+
+31 29
+4l.bgq5t9d1d22ri2ih67gh4pl5ctk8alp
+50.an4j3
+
+
+31 32
+4k.3m9aiqedj0sn7i4edu7s6ruaan6ur9d
+4g.3qrh6
+
+
+31 35
+gs.4505pcb72au7s3n0j79kp7837oks4f3
+ey.4ofke
+
+
+34 2
+ha.0dss3l9ce6hosmxk5sxf3ut4x41nw6pkke
+1001001100.00000
+
+
+34 5
+9a.em1sebii1anclx228tskt07rodpn409otd
+2231.20341
+
+
+34 8
+nu.xic630ac4kwx9e70mv32a47d70jep03af9
+1454.77104
+
+
+34 11
+3s.lfco13jltjj5v1tbeoef82en1p844vxs00
+109.6a387
+
+
+34 14
+8g.4fa1qqvkng1rdr25uhcsiavf0hqdtcwpbt
+168.1b91b
+
+
+34 17
+ph.fuq8xr8c72at835i5otlol12kb3efmlsqv
+300.7g34d
+
+
+34 20
+sx.7x60d0jq5lccuoucrntl1c381476tppvwb
+295.4dgd2
+
+
+34 23
+h4.0aw82e0125esdhrdifqtarbppq0mp9g7a0
+127.05058
+
+
+34 26
+iw.f59qrfktrh5605ghdra53d0wc7xsjeiole
+ok.bf8dd
+
+
+34 29
+7r.rsb2o05g3vvvq0xof7cf5j51pbk10oiqro
+94.nlda2
+
+
+34 32
+k0.loc77e5uk0g546aemc1mr3g70onjh4was1
+l8.ke1hd
+
+
+34 35
+ot.4h0lwjbh0r37evxo5piw37u9wlhpx106tu
+o5.4m5b8
