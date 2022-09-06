@@ -108,7 +108,7 @@ public class Converter
         return decimalFractionalPart.toString();
     }
 
-    public String convertDecimalToBaseX(final String inputDecimalString, final int targetBase)
+    private String convertDecimalToBaseX(final String inputDecimalString, final int targetBase)
     {
         if (inputDecimalString.contains("."))
         {
