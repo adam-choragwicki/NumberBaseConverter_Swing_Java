@@ -127,7 +127,7 @@ public class Converter
 
     private String convertDecimalIntegerToBaseXInteger(String decimalInteger, int targetBase)
     {
-        return new BigInteger(decimalInteger).toString(targetBase);
+        return new BigInteger(decimalInteger).toString(targetBase).toUpperCase();
     }
 
     private String convertDecimalFractionToBaseXFraction(String decimalFraction, int targetBase)
@@ -152,7 +152,7 @@ public class Converter
             {
                 inputFractionalPart = inputFractionalPart.multiply(targetBaseBig);
 
-                char baseXDigit = Character.forDigit(inputFractionalPart.intValue(), targetBaseBig.intValue());
+                char baseXDigit = Character.toUpperCase(Character.forDigit(inputFractionalPart.intValue(), targetBaseBig.intValue()));
                 resultBaseXFractionalPart.append(baseXDigit);
 
                 /* If resulting number is higher than 1.0, subtract the integer part */

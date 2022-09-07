@@ -94,32 +94,32 @@
 
 
 20 10
-abchj
+ABCHJ
 1693159
 
 
 25 10
-abchno
+ABCHNO
 102151849
 
 
 30 10
-tabc
+TABC
 792342
 
 
 36 10
-zxcv
+ZXCV
 1676191
 
 
 36 10
-zXcX
+ZXCX
 1676193
 
 
 36 10
-Xa5X
+XA5X
 1552821
 
 
@@ -139,5 +139,5 @@ Xa5X
 
 
 36 10
-abcd.52a
+ABCD.52A
 481261.14064
