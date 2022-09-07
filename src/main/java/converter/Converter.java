@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 
-public class Converter
+class Converter
 {
     public Converter(String sourceBaseString, String targetBaseString) throws InvalidNumberBaseException
     {
@@ -19,7 +19,7 @@ public class Converter
             throwInvalidNumberBase();
         }
 
-        if (!(sourceBase >= MIN_BASE && sourceBase <= MAX_BASE) || !(targetBase >= MIN_BASE && targetBase <= MAX_BASE))
+        if (!(sourceBase >= Config.MIN_BASE && sourceBase <= Config.MAX_BASE) || !(targetBase >= Config.MIN_BASE && targetBase <= Config.MAX_BASE))
         {
             throwInvalidNumberBase();
         }
@@ -33,7 +33,7 @@ public class Converter
 
     private void throwInvalidNumberBase() throws InvalidNumberBaseException
     {
-        System.out.printf("Wrong number base. Expected integer in range <%d,%d>", MIN_BASE, MAX_BASE);
+        System.out.printf("Wrong number base. Expected integer in range <%d,%d>", Config.MIN_BASE, Config.MAX_BASE);
         throw new InvalidNumberBaseException();
     }
 
@@ -174,8 +174,6 @@ public class Converter
         return resultBaseXFractionalPart.toString();
     }
 
-    final int MIN_BASE = 2;
-    final int MAX_BASE = 36;
     private int sourceBase;
     private int targetBase;
 }

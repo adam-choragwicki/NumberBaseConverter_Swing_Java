@@ -6,6 +6,16 @@ public class Main
 {
     public static void main(String[] args)
     {
+        runConverterGuiVersion();
+    }
+
+    private static void runConverterGuiVersion()
+    {
+        new MainWindow();
+    }
+
+    private static void runConverterTextVersion()
+    {
         Scanner scanner = new Scanner(System.in);
 
         while (true)
