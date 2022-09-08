@@ -1,7 +1,10 @@
 package converter;
 
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import java.util.Objects;
 import java.util.Vector;
 
 public class MainWindow extends JFrame
@@ -12,7 +15,7 @@ public class MainWindow extends JFrame
         setLocationRelativeTo(null);
         setMinimumSize(new Dimension(350, 350));
 
-        Vector<Base> basesSupported = generateSupportedBasesStrings();
+        final Vector<Base> basesSupported = generateSupportedBasesStrings();
 
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
@@ -20,65 +23,96 @@ public class MainWindow extends JFrame
         JLabel labelEnterNumber = new JLabel("Enter number");
         mainPanel.add(labelEnterNumber);
 
-        JTextField textFieldEnterNumber = new JTextField();
+        textFieldEnterNumber = new JTextField();
+        addTextFieldEnterNumberTextChangedListener();
         mainPanel.add(textFieldEnterNumber);
 
         JLabel labelFromBase = new JLabel("From base");
         mainPanel.add(labelFromBase);
 
-        JComboBox<Base> comboBoxFromBase = new JComboBox<>(basesSupported);
+        comboBoxFromBase = new JComboBox<>(basesSupported);
         comboBoxFromBase.setSelectedItem(new Base(10));
         mainPanel.add(comboBoxFromBase);
 
         JLabel labelToBase = new JLabel("To base");
         mainPanel.add(labelToBase);
 
-        JComboBox<Base> comboBoxToBase = new JComboBox<>(basesSupported);
+        comboBoxToBase = new JComboBox<>(basesSupported);
         comboBoxToBase.setSelectedItem(new Base(16));
         mainPanel.add(comboBoxToBase);
 
         JButton buttonConvert = new JButton("Convert");
+        buttonConvert.addActionListener(e -> processButtonConvertClick());
         mainPanel.add(buttonConvert);
 
         JLabel labelResultNumber = new JLabel("Result number");
         mainPanel.add(labelResultNumber);
 
-        JTextField textFieldResult = new JTextField();
+        textFieldResult = new JTextField();
         mainPanel.add(textFieldResult);
-
-        buttonConvert.addActionListener(e ->
-        {
-            Base sourceBase = (Base) comboBoxFromBase.getSelectedItem();
-            Base targetBase = (Base) comboBoxToBase.getSelectedItem();
-            String number = textFieldEnterNumber.getText();
-
-            if(number.isEmpty())
-            {
-                textFieldEnterNumber.setBackground(Color.red);
-                return;
-            }
-            else
-            {
-                textFieldEnterNumber.setBackground(Color.white);
-            }
-
-            try
-            {
-                textFieldEnterNumber.setForeground(Color.black);
-
-                String result = new Converter(String.valueOf(sourceBase.getNumber()), String.valueOf(targetBase.getNumber())).convertNumber(number);
-                textFieldResult.setText(result);
-            }
-            catch (InvalidNumberRepresentationException | InvalidNumberBaseException exception)
-            {
-                textFieldEnterNumber.setForeground(Color.red);
-            }
-        });
 
         add(mainPanel);
 
         pack();
         setVisible(true);
+    }
+
+    private void addTextFieldEnterNumberTextChangedListener()
+    {
+        textFieldEnterNumber.getDocument().addDocumentListener(new DocumentListener()
+        {
+            @Override
+            public void changedUpdate(DocumentEvent e)
+            {
+                processUpdate();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e)
+            {
+                processUpdate();
+            }
+
+            @Override
+            public void insertUpdate(DocumentEvent e)
+            {
+                processUpdate();
+            }
+
+            private void processUpdate()
+            {
+                if (textFieldEnterNumber.getForeground() != Color.black)
+                {
+                    textFieldEnterNumber.setForeground(Color.black);
+                }
+            }
+        });
+    }
+
+    private void processButtonConvertClick()
+    {
+        Base sourceBase = (Base) comboBoxFromBase.getSelectedItem();
+        Base targetBase = (Base) comboBoxToBase.getSelectedItem();
+        String number = textFieldEnterNumber.getText();
+
+        if (number.isEmpty())
+        {
+            JOptionPane.showMessageDialog(this, "Please enter number to be converted");
+        }
+        else
+        {
+            try
+            {
+                Converter converter = new Converter(String.valueOf(Objects.requireNonNull(sourceBase).getNumber()), String.valueOf(Objects.requireNonNull(targetBase).getNumber()));
+                String result = converter.convertNumber(number);
+                textFieldResult.setText(result);
+            }
+            catch (InvalidNumberRepresentationException | InvalidNumberBaseException exception)
+            {
+                textFieldEnterNumber.setForeground(Color.red);
+                JOptionPane.showMessageDialog(this, "Number %s cannot be represented in base %s".formatted(number, sourceBase), "", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 
     private Vector<Base> generateSupportedBasesStrings()
@@ -92,4 +126,9 @@ public class MainWindow extends JFrame
 
         return basesSupported;
     }
+
+    JComboBox<Base> comboBoxFromBase;
+    JComboBox<Base> comboBoxToBase;
+    JTextField textFieldEnterNumber;
+    JTextField textFieldResult;
 }
