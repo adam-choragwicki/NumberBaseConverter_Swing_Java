@@ -1,6 +1,7 @@
 package converter;
 
 import java.util.Objects;
+import java.util.Vector;
 
 class Base
 {
@@ -29,6 +30,18 @@ class Base
     int getNumber()
     {
         return number;
+    }
+
+    static Vector<Base> generateSupportedBases()
+    {
+        Vector<Base> basesSupported = new Vector<>();
+
+        for (int baseNumber = Config.MIN_BASE; baseNumber <= Config.MAX_BASE; ++baseNumber)
+        {
+            basesSupported.add(new Base(baseNumber));
+        }
+
+        return basesSupported;
     }
 
     @Override
