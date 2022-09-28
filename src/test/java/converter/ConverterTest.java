@@ -1,5 +1,7 @@
 package converter;
 
+import errorhandling.InvalidNumberBaseException;
+import errorhandling.InvalidNumberRepresentationException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

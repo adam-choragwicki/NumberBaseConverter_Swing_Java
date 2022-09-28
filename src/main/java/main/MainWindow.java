@@ -1,4 +1,8 @@
-package converter;
+package main;
+
+import converter.*;
+import config.*;
+import errorhandling.*;
 
 import java.awt.*;
 import javax.swing.*;
@@ -11,13 +15,15 @@ public class MainWindow extends JFrame
     public MainWindow()
     {
         super("Number base converter");
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setMinimumSize(new Dimension(500, 500));
-        getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+        setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 
         addComponents();
-        pack();
-        setResizable(false);
+
+        setSize(Config.windowWidth, Config.windowHeight);
+        setMinimumSize(getSize());
         setVisible(true);
     }
 

@@ -1,11 +1,13 @@
 package converter;
 
+import config.Config;
+
 import java.util.Objects;
 import java.util.Vector;
 
-class Base
+public class Base
 {
-    Base(int number)
+    public Base(int number)
     {
         this.number = number;
 
@@ -27,12 +29,12 @@ class Base
         }
     }
 
-    int getNumber()
+    public int getNumber()
     {
         return number;
     }
 
-    static Vector<Base> generateSupportedBases()
+    public static Vector<Base> generateSupportedBases()
     {
         Vector<Base> basesSupported = new Vector<>();
 

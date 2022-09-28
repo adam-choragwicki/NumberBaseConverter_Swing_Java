@@ -1,11 +1,15 @@
 package converter;
 
+import config.Config;
+import errorhandling.InvalidNumberBaseException;
+import errorhandling.InvalidNumberRepresentationException;
+
 import java.math.BigInteger;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 
-class Converter
+public class Converter
 {
     public Converter(String sourceBaseString, String targetBaseString) throws InvalidNumberBaseException
     {
@@ -176,17 +180,4 @@ class Converter
 
     private int sourceBase;
     private int targetBase;
-}
-
-class InvalidNumberBaseException extends Exception
-{
-
-}
-
-class InvalidNumberRepresentationException extends Exception
-{
-    public InvalidNumberRepresentationException(String number, int base)
-    {
-        System.out.printf("Number %s cannot be represented in base %d", number, base);
-    }
 }
