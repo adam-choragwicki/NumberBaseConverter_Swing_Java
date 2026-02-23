@@ -52,6 +52,7 @@ public class MainWindow extends JFrame
         comboBoxFromBase.setFont(Config.comboBoxFont);
         comboBoxFromBase.setRenderer(listRenderer);
         comboBoxFromBase.setSelectedItem(new Base(10));
+        comboBoxFromBase.addActionListener(e -> processConversion());
         add(comboBoxFromBase);
 
         JLabel labelToBase = new JLabel("To base");
@@ -63,12 +64,8 @@ public class MainWindow extends JFrame
         comboBoxToBase.setFont(Config.comboBoxFont);
         comboBoxToBase.setRenderer(listRenderer);
         comboBoxToBase.setSelectedItem(new Base(16));
+        comboBoxToBase.addActionListener(e -> processConversion());
         add(comboBoxToBase);
-
-        JButton buttonConvert = new JButton("Convert");
-        buttonConvert.addActionListener(e -> processButtonConvertClick());
-        buttonConvert.setAlignmentX(Component.CENTER_ALIGNMENT);
-        add(buttonConvert);
 
         JLabel labelResultNumber = new JLabel("Result number");
         labelResultNumber.setFont(Config.labelFont);
@@ -106,37 +103,34 @@ public class MainWindow extends JFrame
 
             private void processUpdate()
             {
-                if (textFieldEnterNumber.getForeground() != Color.black)
-                {
-                    textFieldEnterNumber.setForeground(Color.black);
-                }
+                processConversion();
             }
         });
     }
 
-    private void processButtonConvertClick()
+    private void processConversion()
     {
         Base sourceBase = (Base) comboBoxFromBase.getSelectedItem();
         Base targetBase = (Base) comboBoxToBase.getSelectedItem();
         String number = textFieldEnterNumber.getText();
 
-        if (number.isEmpty())
+        if (number == null || number.isEmpty())
         {
-            JOptionPane.showMessageDialog(this, "Please enter number to be converted");
+            textFieldResult.setText("");
+            return;
         }
-        else
+
+        try
         {
-            try
-            {
-                Converter converter = new Converter(String.valueOf(Objects.requireNonNull(sourceBase).getNumber()), String.valueOf(Objects.requireNonNull(targetBase).getNumber()));
-                String result = converter.convertNumber(number);
-                textFieldResult.setText(result);
-            }
-            catch (InvalidNumberRepresentationException | InvalidNumberBaseException exception)
-            {
-                textFieldEnterNumber.setForeground(Color.red);
-                JOptionPane.showMessageDialog(this, "Number %s cannot be represented in base %s".formatted(number, sourceBase), "", JOptionPane.ERROR_MESSAGE);
-            }
+            Converter converter = new Converter(String.valueOf(Objects.requireNonNull(sourceBase).getNumber()), String.valueOf(Objects.requireNonNull(targetBase).getNumber()));
+            String result = converter.convertNumber(number);
+            textFieldResult.setText(result);
+            textFieldEnterNumber.setForeground(Color.black);
+        }
+        catch (InvalidNumberRepresentationException | InvalidNumberBaseException exception)
+        {
+            textFieldEnterNumber.setForeground(Color.red);
+            textFieldResult.setText("");
         }
     }
 
