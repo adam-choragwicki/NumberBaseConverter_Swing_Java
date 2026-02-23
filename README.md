@@ -5,7 +5,7 @@ Java implementation of a number base converter using:
 * Java Swing library
 * Maven 3.8.1
 
-![](screenshots.jpg)
+![](screenshot.png)
 
 **Executable JAR is provided.**
 
