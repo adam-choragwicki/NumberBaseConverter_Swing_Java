@@ -11,14 +11,15 @@ import java.math.RoundingMode;
 
 public class Converter
 {
+    private static final int TARGET_SIGNIFICANT_DIGITS_COUNT = 5;
+
     public Converter(String sourceBaseString, String targetBaseString) throws InvalidNumberBaseException
     {
         try
         {
             sourceBase = Integer.parseInt(sourceBaseString);
             targetBase = Integer.parseInt(targetBaseString);
-        }
-        catch (NumberFormatException numberFormatException)
+        } catch (NumberFormatException numberFormatException)
         {
             throwInvalidNumberBase();
         }
@@ -31,8 +32,15 @@ public class Converter
 
     public String convertNumber(String numberString) throws InvalidNumberRepresentationException
     {
-        String decimalResultString = convertBaseXToDecimal(numberString, sourceBase);
-        return convertDecimalToBaseX(decimalResultString, targetBase);
+        ParsedNumber parsedNumber = parseAndValidateInput(numberString);
+
+        // preserve sign for inputs like "-0.1" by handling it separately from the magnitude.
+        String decimalResultString = convertBaseXToDecimal(parsedNumber.magnitude, sourceBase);
+        String result = convertDecimalToBaseX(decimalResultString, targetBase);
+
+        // remove trailing zeros from the fractional part in the final output (e.g., "2.80000" -> "2.8").
+        result = trimTrailingZeros(result);
+        return applySign(result, parsedNumber.negative);
     }
 
     private void throwInvalidNumberBase() throws InvalidNumberBaseException
@@ -64,8 +72,7 @@ public class Converter
         {
             BigInteger integer = new BigInteger(baseXInteger, sourceBase);
             return integer.toString();
-        }
-        catch (NumberFormatException numberFormatException)
+        } catch (NumberFormatException numberFormatException)
         {
             throw new InvalidNumberRepresentationException(baseXInteger, sourceBase);
         }
@@ -85,13 +92,13 @@ public class Converter
         try
         {
             fractionalPartAsInteger = new BigInteger(baseXFraction, sourceBase);
-        }
-        catch (NumberFormatException numberFormatException)
+        } catch (NumberFormatException numberFormatException)
         {
             throw new InvalidNumberRepresentationException(baseXFraction, sourceBase);
         }
 
-        if (fractionalPartAsInteger.intValue() == 0)
+        // avoid int overflow when checking for zero in large fractional parts.
+        if (fractionalPartAsInteger.signum() == 0)
         {
             decimalFractionalPart = new BigDecimal("0.0");
         }
@@ -142,40 +149,128 @@ public class Converter
 
         BigDecimal inputFractionalPart = new BigDecimal("0." + decimalFraction);
 
-        /* If value of fractional digits is 0 */
         if (inputFractionalPart.equals(BigDecimal.ZERO))
         {
-            resultBaseXFractionalPart.append("00000");
+            // avoid fixed-width zero padding; a zero fraction should yield no digits.
+            return "";
         }
-        else
+
+        int significantDigitsCount = 0;
+
+        while ((inputFractionalPart.compareTo(BigDecimal.ZERO) > 0) && significantDigitsCount < TARGET_SIGNIFICANT_DIGITS_COUNT)
         {
-            final int TARGET_SIGNIFICANT_DIGITS_COUNT = 5;
-            int significantDigitsCount = 0;
+            inputFractionalPart = inputFractionalPart.multiply(targetBaseBig);
 
-            while ((inputFractionalPart.compareTo(BigDecimal.ZERO) > 0) && significantDigitsCount < 5)
+            char baseXDigit = Character.toUpperCase(Character.forDigit(inputFractionalPart.intValue(), targetBaseBig.intValue()));
+            resultBaseXFractionalPart.append(baseXDigit);
+
+            if (inputFractionalPart.compareTo(BigDecimal.ONE) >= 0)
             {
-                inputFractionalPart = inputFractionalPart.multiply(targetBaseBig);
-
-                char baseXDigit = Character.toUpperCase(Character.forDigit(inputFractionalPart.intValue(), targetBaseBig.intValue()));
-                resultBaseXFractionalPart.append(baseXDigit);
-
-                /* If resulting number is higher than 1.0, subtract the integer part */
-                if (inputFractionalPart.compareTo(BigDecimal.ONE) > 0)
-                {
-                    inputFractionalPart = inputFractionalPart.subtract(new BigDecimal(inputFractionalPart.toBigInteger()));
-                }
-
-                ++significantDigitsCount;
+                // if the resulting number is >= 1.0, subtract the integer part
+                inputFractionalPart = inputFractionalPart.subtract(new BigDecimal(inputFractionalPart.toBigInteger()));
             }
 
-            /* Fill resulting fraction up with zeroes up to TARGET_SIGNIFICANT_DIGITS_COUNT */
-            if (significantDigitsCount != TARGET_SIGNIFICANT_DIGITS_COUNT)
-            {
-                resultBaseXFractionalPart.append("0".repeat(TARGET_SIGNIFICANT_DIGITS_COUNT - significantDigitsCount));
-            }
+            ++significantDigitsCount;
         }
 
         return resultBaseXFractionalPart.toString();
+    }
+
+    private ParsedNumber parseAndValidateInput(String numberString) throws InvalidNumberRepresentationException
+    {
+        if (numberString == null || numberString.isEmpty())
+        {
+            // reject empty inputs
+            throw new InvalidNumberRepresentationException(String.valueOf(numberString), sourceBase);
+        }
+
+        boolean negative = false;
+        int startIndex = 0;
+        char firstChar = numberString.charAt(0);
+
+        if (firstChar == '-' || firstChar == '+')
+        {
+            negative = firstChar == '-';
+            startIndex = 1;
+        }
+
+        String magnitude = getString(numberString, startIndex);
+
+        return new ParsedNumber(negative, magnitude);
+    }
+
+    private String getString(String numberString, int startIndex) throws InvalidNumberRepresentationException
+    {
+        String magnitude = numberString.substring(startIndex);
+
+        if (magnitude.isEmpty())
+        {
+            // reject sign-only input.
+            throw new InvalidNumberRepresentationException(numberString, sourceBase);
+        }
+
+        int firstDotIndex = magnitude.indexOf('.');
+        if (firstDotIndex != -1)
+        {
+            // reject leading/trailing dot and multiple dots.
+            if (firstDotIndex == 0 || firstDotIndex == magnitude.length() - 1 || magnitude.indexOf('.', firstDotIndex + 1) != -1)
+            {
+                throw new InvalidNumberRepresentationException(numberString, sourceBase);
+            }
+        }
+        return magnitude;
+    }
+
+    private String applySign(String magnitude, boolean negative)
+    {
+        if (!negative || isZeroMagnitude(magnitude))
+        {
+            return magnitude;
+        }
+
+        return "-" + magnitude;
+    }
+
+    private boolean isZeroMagnitude(String magnitude)
+    {
+        for (int i = 0; i < magnitude.length(); ++i)
+        {
+            char c = magnitude.charAt(i);
+
+            if (c != '.' && c != '0')
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private String trimTrailingZeros(String number)
+    {
+        int dotIndex = number.indexOf('.');
+        if (dotIndex == -1)
+        {
+            return number;
+        }
+
+        int endIndex = number.length() - 1;
+        while (endIndex > dotIndex && number.charAt(endIndex) == '0')
+        {
+            --endIndex;
+        }
+
+        // if the fractional part is all zeros, drop the dot entirely.
+        if (endIndex == dotIndex)
+        {
+            return number.substring(0, dotIndex);
+        }
+
+        return number.substring(0, endIndex + 1);
+    }
+
+    private record ParsedNumber(boolean negative, String magnitude)
+    {
     }
 
     private int sourceBase;
