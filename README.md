@@ -1,9 +1,9 @@
 # Number base converter
 
 Java implementation of a number base converter using:
-* OpenJDK 18
+* OpenJDK 25
 * Java Swing library
-* Maven 3.8.1
+* Maven 3.9.11
 
 ![](screenshot.png)
 
