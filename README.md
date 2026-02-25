@@ -1,3 +1,5 @@
+[![Tests](https://github.com/adam-choragwicki/NumberBaseConverter_Swing_Java/actions/workflows/tests-workflow.yml/badge.svg)](https://github.com/adam-choragwicki/NumberBaseConverter_Swing_Java/actions/workflows/tests-workflow.yml)
+
 # Number base converter
 
 Java implementation of a number base converter using:
